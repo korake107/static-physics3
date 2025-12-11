@@ -9,7 +9,7 @@
 \usepackage{amsfonts}     % 数学用フォント
 \usepackage{physics}      % 物理学の数式用マクロ (bra, ket, dvなど)
 \usepackage{bm}           % 太字の数式 \bm{}
-
+\usepackage{amssymb}       % 追加の数学記号
 % --- 図や色、レイアウト関連のパッケージ ---
 \usepackage[dvipdfmx]{graphicx, color} % 図の挿入や色の利用
 \usepackage{tikz}         % 図形描画
@@ -31,9 +31,301 @@
 \usepackage{pxjahyper} % hyperrefの日本語文字化け対策
 \begin{document}
 
-\title{テスト文書}
-\author{一ノ瀬}
+\title{統計力学3}
+\author{22B20817 小武龍斗}
 \date{\today}
 \maketitle
 
+\section{問題1}
+
+(i)
+\\
+$\ev*{s_i}=\cos(2\phi)$から、\begin{align}
+    m(h)=\qty(\frac{e^K \sinh H}{e^{2K} \sinh^2 H + e^{-2K}})^{1/2}
+\end{align}
+が成り立つことを示す。
+\\
+\fbox{解答}
+\\
+転送行列を$T$とすると、$U$で対角化できるので、その時にでてくる関係式$\cot (2\phi)=e^{2K}\sinh H$を用いる。
+\begin{align}
+    \ev*{s_i}&=\cos(2\phi)\\
+    &=\frac{1}{\sqrt{1+\tan^2(2\phi)}}\\
+    &=\frac{1}{\sqrt{1+\frac{1}{\cot^2(2\phi)}}}\\
+    &=\frac{1}{\sqrt{1+\frac{1}{e^{4K}\sinh^2 H}}}\\
+    &=\qty(\frac{e^{4K}\sinh^2 H}{e^{4K}\sinh^2 H + 1})^{1/2}\\
+    &=\qty(\frac{e^{2K} \sinh H}{e^{2K} \sinh^2 H + e^{-2K}})^{1/2}
+\end{align}
+となってしまい、(1.21)の表式とは異なってしまった。
+\\
+(ii)
+\\
+\begin{align}
+    \xi=\frac{\beta}{N}\sum_{i,j}G(i,j)|_{h=0}
+\end{align}
+を確かめよ。
+\\
+\fbox{解答}
+\\
+磁化は、分配関数$Z$、粒子の個数$N$、逆温度$\beta$を用いて、磁化が次のように表される。
+\begin{align}
+    m=\frac{1}{N\beta}\pdv{\log Z}{h}
+\end{align}
+このとき、帯磁率$\chi$は磁化を 磁場で微分したものであるから、
+\begin{align}
+    \chi=\pdv{m}{h}=\frac{1}{N\beta}\pdv[2]{\log Z}{h}
+\end{align}
+となる。
+具体的な表式を計算してみる。
+今回はイジング模型を考えているので、ハミルトニアンは次で与え得られる$H=-J\sum s_is_j-h\sum s_i$でスピンは$\pm 1$で与えられる。
+よって、分配関数$Z$は次のように表される。
+\begin{align}
+    Z=\sum_{\{s\}}e^{-\beta H}=\sum_{\{s\}}e^{\beta J\sum s_is_j + \beta h \sum s_i}
+\end{align}
+帯磁率の定義式に代入すると、
+\begin{align}
+    \chi=&\frac{1}{N\beta}\pdv{}{h}\qty(\frac{1}{Z}\pdv{Z}{h})\\
+=&\frac{1}{N\beta}\pdv{}{h}\qty(\frac{1}{Z}\pdv{{\sum_{\{s\}}e^{\beta J\sum s_is_j + \beta h \sum s_i}}}{h})\\
+=&\frac{1}{N\beta}\pdv{}{h}\qty(\frac{1}{Z}Z\beta \ev*{s})\\
+=&\frac{1}{N}\pdv{}{h}\ev*{s}\\
+=&\frac{\beta}{N}\pdv{}{h}\frac{\sum_{(s)}s\exp(\beta J\sum s_i s_j+\beta h\sum s_i)}{Z}\\
+=&\frac{\beta}{N}\qty(\frac{\sum_{(s)}s^2\exp(\beta J\sum s_i s_j+\beta h\sum s_i)}{Z}-\frac{(\sum_{(s)}s\exp(\beta J\sum s_i s_j+\beta h\sum s_i))^2}{Z^2})\\
+=&\frac{\beta}{N}\qty(\ev*{s^2}-\ev*{s}^2)\\
+=&\frac{\beta}{N}\sum_{i,j}G(i,j)|_{h=0}
+\end{align}
+\\
+以上より示された。
+\\
+(iii)
+\\
+\begin{align}
+    \chi=\frac{\beta}{N}\sum_{i,j}G(i,j)|_{h=0}
+\end{align}
+に対して$h=0$の時、$\chi=\\beta e^{2K}$になることを確認する。
+\\
+\fbox{解答}
+\\
+(2)で示した式に対して、$h=0$を代入する。このとき式(1.31)(1.32)(1.33)を用いて
+相関関数は次のような表式になる。
+\begin{align}
+    G(r)=\sin^2(2\phi)\qty(\frac{\lambda_-}{\lambda_+})^r
+\end{align}
+$\cot (2\phi)=e^{2K}\sinh K$より、$h=0$のとき、$\phi=\pi/4$となり、$\sin^2(2\phi)=1$となる。
+また、転送行列Tの固有値で$\lambda_+,\lambda_-$は次のように表される。
+\begin{align}
+    \lambda_+&=2\cosh K\\
+    \lambda_-&=2\sinh K
+\end{align}
+よって、相関関数は次のようになる。
+\begin{align}
+    G(r)=\qty(\tanh K)^r
+\end{align}
+よって、帯磁率は次のようになる。
+\begin{align}
+    \chi=&\frac{\beta}{N}\sum_{i,j}G(i,j)|_{h=0}\\
+    =&\beta \sum_{r=0}^{\infty}(\tanh K)^r\\
+    =&\beta \frac{1}{1-\tanh K}\\
+    =&\beta \frac{1}{\frac{e^{2K}-1}{e^{2K}+1}}\\
+    =&\beta e^{2K}
+\end{align}
+となり、示された。無限等比級数の和の公式を用いた。
+\\
+\\
+\section{問題2}
+ランダウの自由エネルギーの式を用いて臨界指数を計算し、平均場理論の結果と比較せよ。
+\\
+\fbox{解答}
+\\
+ランダウの自由エネルギーは次のように表される。
+\begin{align}
+    f(m)=const +am^2+bm^4-hm
+\end{align}
+ここで、$a=a_0(T-T_c)$、$b>0$である。
+まず、磁化$m$が自由エネルギー$f(m)$を最小にするように決まるので、$\pdv{f}{m}=0$を考える。
+\begin{align}
+    \pdv{f}{m}=2am+4b m^3&=0\\
+    m(am + b m^2)&=0\\
+     m=0 \quad or \quad m^2=&-\frac{a}{2b}\\
+\end{align}
+ここで、$T>T_c$のとき、$a>0$なので、$m=0$が安定解となる。
+一方、$T<T_c$のとき、$a<0$なので、$m=\pm \sqrt{-a/b}$が安定解となる。つまり自発磁化が発生する。
+以上より、臨界温度付近での自発磁化の振る舞いは次のようになる。
+\begin{align}
+    m=\sqrt{-\frac{a}{2b}}=\sqrt{\frac{a_0}{2b}(T_c-T)}
+\end{align}
+よって、臨界指数$\beta$は1/2である。
+\\
+次に臨界指数$\alpha$を求める。そのためには自由エネルギーの最小値を温度で2回微分する。
+\begin{align}
+    f=const +am_0^2+bm_0^4=const-\frac{a_0^2(T-T_c)^2}{4b}
+\end{align}
+よって、臨界点以上で自由エネルギーが定数となるので $\alpha=0$である。
+一方、臨界点以下では、定数となるので、$\alpha=0$である。
+\\
+次に臨界指数$\delta$を求める。臨界点における磁化の磁場依存性の問題であるので、磁場の項$-hm$が加わった自由エネルギーの磁化での1回微分の式
+を考える。
+\begin{align}
+    \pdv{f}{m}=2am+4bm^3-h=0
+\end{align}
+臨界点$T=T_c$において、$a=0$であるので、上式は次のようになる。
+\begin{align}
+    4bm^3=h
+\end{align}
+よって$\delta=3$となる。
+\\
+次に臨界指数$\gamma$を求める。帯磁率の臨界指数である。帯磁率は$\chi=\pdv{m}{h}$を計算すればよいので
+\begin{align}
+    \pdv{h}{m}=2a+12bm^2
+\end{align}
+から次のように求めることが出来る。
+\begin{align}
+    \chi=&\qty(\pdv{h}{m})^{-1}\\
+    =&\frac{1}{2a+12bm^2}
+\end{align}
+まず、$T>T_c$のとき、$m=0$であるので
+\begin{align}
+    \chi=&\frac{1}{2a}\\
+    =&\frac{1}{2a_0(T-T_c)}
+    \end{align}
+となり、$\gamma=1$である。
+一方、$T<T_c$のとき、$m=\sqrt{-a/2b}$であるので
+\begin{align}
+    \chi=&\frac{1}{2a+12b(-\frac{a}{2b})}\\
+    =&\frac{1}{-4a}\\
+    =&\frac{1}{4a_0(T_c-T)}
+\end{align}
+となり、こちらも$\gamma=1$である。
+\\
+以上より、ランダウの自由エネルギーから求めた臨界指数は
+\begin{align}
+    \alpha=0,\quad \beta=\frac{1}{2},\quad \gamma=1,\quad \delta=3
+\end{align}
+であり、平均場理論の結果と一致する。
+\\
+\section{問題5}
+\begin{align}
+    f(b^\aleph x,b^\beta y)=b^\gamma f(x,y)
+\end{align}
+が成り立つとき、次の関係が成り立つことを確かめよ。
+\begin{align}
+    f(x,y)=x^{\gamma/\aleph}\Phi(y/x^{\beta/\aleph})
+\end{align}
+\\
+\fbox{解答}
+\\
+2変数関数$f(x,y)$を1変数関数$\Phi$で表せることを求められれば良い。
+\begin{align}
+    f(b^\alpha x,b^\beta y)=&b^\gamma f(x,y) 
+\end{align}
+この式は任意の$b$に対して成り立つので、$b^\alpha x=1$とする$b$の値を考えると、$b=x^{-\beta}$となる。
+これを上式に代入すると、
+\begin{align}
+    f(1,y/x^{\beta/\alpha})=&x^{-\gamma/\alpha} f(x,y)
+\end{align}
+となる。ここで、左辺は$\frac{y}{x^{\beta/\alpha}}=\qty(\frac{y^\alpha}{x^\beta})^\alpha$で表せるので1変数関数$\Phi$で表すことにする。
+\begin{align}
+    \Phi\qty(\qty(\frac{y^\alpha}{x^\beta})^\alpha)=& f(1,y/x^{\beta/\alpha})
+\end{align}
+とすることにする。
+よって次の関係が成り立つ。
+\begin{align}
+     \Phi\qty(\qty(\frac{y^\alpha}{x^\beta})^\alpha)=& x^{-\gamma/\alpha} f(x,y)\\
+    f(x,y)=& x^{\gamma/\alpha}\Phi\qty(\qty(\frac{y^\alpha}{x^\beta})^\alpha)
+\end{align}
+以上より示された。
+\\
+\\
+\section{問題6}
+(i)\\
+次の3つの関係式が平均場近似において成り立つことを確かめる。
+\begin{align}
+    \gamma&=\beta(\delta-1)\label{55}\\
+    \alpha=&2-\beta-\beta\delta\label{56}\\
+    \nu(2-\iota)=\gamma\label{57}
+\end{align}
+\\
+\fbox{解答}
+\\
+まず平均場近似における臨界指数は次のようになる。
+\begin{align}
+    \alpha=0,\quad \beta=\frac{1}{2},\quad \gamma=1,\quad \delta=3,\quad \nu=\frac{1}{2}
+\end{align}
+これらを用いて、各関係式が成り立つことを確認する。  
+まず、(\ref{55})式について、
+\begin{align}
+    \beta(\delta-1)=&\frac{1}{2}(3-1)\\
+    =&1\\
+    =&\gamma
+\end{align}
+となり、成り立つ。
+次に、(\ref{56})式について、
+\begin{align}
+    2-\beta-\beta\delta=&2-\frac{1}{2}-\frac{1}{2}\times 3\\
+    =&2-2\\
+    =&0\\
+    =&\alpha
+\end{align}
+となり、成り立つ。
+最後に、(\ref{57})式について、
+\begin{align}
+    \nu(2-\iota)=&\frac{1}{2}(2-1)\\
+    =&\frac{1}{2}\\
+    =&\gamma
+\end{align}
+となり、成り立つ。
+\\
+(ii)\\
+次の式に対して、平均場近似を適用することについて考察する。
+\begin{align}
+    \nu d=2-\alpha
+\end{align}
+\\
+\fbox{解答}
+\\
+平均場近似での臨界指数は次のようになる。
+\begin{align}
+    \alpha=0,\quad \nu=\frac{1}{2}
+\end{align}
+よって、次のようになる。
+\begin{align}
+    \nu d=&2-\alpha\\
+    \frac{1}{2}d=&2-0\\
+    d=&4
+\end{align}
+となる。ここで平均場近似が適用できる場合を考える。
+平均場近似が適用できるのは、平均値の周りの揺らぎが無視できる場合である。
+\\
+揺らぎの大きさの目明日として、相関距離までの長さにおける磁化の分散の累積を採用すると、次のように表される。
+\begin{align}
+    \sigma_m^2\equiv \int_0^{\xi} \ev*{(S_r-\ev{S_r})}{S_0-\ev{S_0}}d^dr
+    =\int_0^{\xi} (\ev{S_r S_0}-\ev{S_r}\ev{S_0}) d^dr
+\end{align}
+この量は理科率$\chi$に温度を$T$をかけたものである。これと比較するべき量は同じ空間範囲における磁化の2乗の累積である。つまり自発磁化が発生する\begin{align}
+    \int_0^{\xi} \ev{S_r} \ev{S_0} d^dr  \varpropto m^2\xi^d
+\end{align}
+これを揺らぎの量と比べて十分大きければ、平均場近似が成り立つ。
+\begin{align}
+    \frac{m^2 \xi^d}{\sigma_m^2} \gg 1
+\end{align}
+ここで、臨界指数の定義式を用いると、次のようになる。
+\begin{align}
+    \frac{m^2 \xi^d}{\sigma_m^2} \varpropto \frac{(T_c-T)^{2\beta}(T_c-T)^{-\nu d}}{(T_c-T)^{-\gamma}}=(T_c-T)^{2\beta+\gamma - \nu d}
+\end{align}
+平均場近似が成り立つためには、$T\to T_c$のとき上式が無限大に発散する必要がある。つまり、次の不等式が成り立つ必要がある。
+\begin{align}
+    2\beta + \gamma - \nu d <0
+\end{align}
+これを変形すると、次のようになる。
+\begin{align}
+    \nu d > 2\beta + \gamma
+\end{align}
+ここで、関係式$\gamma=\beta(\delta-1)$とウィッシャムの関係式$2-\alpha=\beta(\delta+1)$を用いると、次のようになる。
+\begin{align}
+    \nu d > 2-\alpha
+\end{align}
+平均場近似が成り立つための必要条件として上式が成り立つ。
+具体的に数値を代入する平均場近似が成り立つ場合として$d\geq 4$となる。よって、与えられた式は平均場近似を適用する場合成り立たないことが分かる。
+    \begin{thebibliography}{9}
+    \bibitem{stat_mech}相転移・限界現象の統計物理学 西森秀稔 培風館　2005
+\end{thebibliography}
 \end{document}

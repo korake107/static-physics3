@@ -1,0 +1,39 @@
+\documentclass[11pt, draft]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=35truemm]{geometry} % 余白を35mmに設定
+
+% --- 数学関連のパッケージ ---
+\usepackage{amsmath}      % 様々な数式環境
+\usepackage{amsthm}       % 定理環境
+\usepackage{amsfonts}     % 数学用フォント
+\usepackage{physics}      % 物理学の数式用マクロ (bra, ket, dvなど)
+\usepackage{bm}           % 太字の数式 \bm{}
+
+% --- 図や色、レイアウト関連のパッケージ ---
+\usepackage[dvipdfmx]{graphicx, color} % 図の挿入や色の利用
+\usepackage{tikz}         % 図形描画
+\usetikzlibrary{intersections,calc,arrows.meta}
+\usepackage{float}        % 図表の位置を調整 [H]など
+\usepackage{siunitx}      % 単位をきれいに表示 \SI{100}{\kilo\gram}など
+\usepackage{ascmac}       % itemboxなどの囲み枠
+
+% --- その他 ---
+\parindent = 0pt % 全体の段落開始時のインデントをなくす
+
+% --- ハイパーリンク関連 (できるだけ最後に読み込む) ---
+\usepackage[
+    dvipdfmx,
+    bookmarks=true,
+    bookmarksnumbered=true,
+    bookmarkstype=toc
+]{hyperref}
+\usepackage{pxjahyper} % hyperrefの日本語文字化け対策
+\begin{document}
+
+\title{テスト文書}
+\author{一ノ瀬}
+\date{\today}
+\maketitle
+
+\end{document}

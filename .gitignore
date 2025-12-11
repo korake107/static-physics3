@@ -1,0 +1,21 @@
+# LaTeX auxiliary files
+*.aux
+*.log
+*.toc
+*.lof
+*.lot
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.blg
+*.bbl
+
+# PDF output file
+*.pdf
+
+# DVI file
+*.dvi
+
+# VS Code settings folder
+.vscode/
